@@ -1,18 +1,59 @@
-# Face Character Emoji - 실시간 얼굴 필터 웹 애플리케이션
 
-## 📌 프로젝트 소개
+# 🎭 Face Recognition Projects
+
+## 1. 😊 Face Emotion Game - 실시간 감정 인식 게임
+
+### 📌 프로젝트 소개
+Face Emotion Game은 실시간 웹캠을 통해 사용자의 표정을 인식하고, 이를 게임화한 인터랙티브 웹 애플리케이션입니다. HAARCASCADE 모델을 활용한 얼굴 인식과 직접 학습시킨 CNN 모델을 통한 감정 분류를 구현했습니다. 사용자는 주어진 감정을 표현하여 점수를 얻는 방식으로, 재미있게 감정 표현을 연습할 수 있습니다.
+
+### 🎯 주요 기능
+- 실시간 얼굴 감정 인식 (7가지 감정)
+- HAARCASCADE 기반 실시간 얼굴 검출
+- CNN 모델 기반 감정 분류
+- 게임화된 감정 표현 시스템
+- 실시간 점수 시스템
+
+### 🧠 모델 개발
+#### 데이터셋
+- **FER2013 데이터셋** (Kaggle)
+  - 48x48 픽셀 그레이스케일 얼굴 이미지
+  - 7가지 감정 카테고리
+  - 총 35,887개의 학습 데이터
+
+#### 모델 아키텍처
+1. **얼굴 인식**
+   - HAARCASCADE 모델 사용
+   - OpenCV의 cascade classifier 활용
+   - 실시간 얼굴 검출 및 추적
+
+2. **감정 분류 (CNN)**
+   - 직접 설계 및 학습한 CNN 모델
+   - 입력: 48x48 그레이스케일 이미지
+   - 출력: 7가지 감정 분류
+   - 학습 데이터: FER2013 데이터셋
+
+## 2. 😺 Face Character Emoji - 실시간 얼굴 필터 웹 애플리케이션
+
+### 📌 프로젝트 소개
 Face Character Emoji는 웹캠을 통해 실시간으로 사용자의 얼굴을 인식하고 재미있는 동물 캐릭터 필터를 적용할 수 있는 웹 애플리케이션입니다. MediaPipe의 얼굴 인식 기술과 Flask 웹 프레임워크를 활용하여 개발되었습니다.
 
-## 🎯 주요 기능
-- 실시간 웹캠 영상 처리
+### 🎯 주요 기능
 - MediaPipe를 활용한 정확한 얼굴 인식
 - 다양한 동물 캐릭터 필터 (고양이, 여우)
 - 웹 인터페이스를 통한 간편한 필터 전환
 - 실시간 이미지 오버레이 처리
 
-## 🛠 기술 스택
+## 🛠 통합 기술 스택
 - **Backend**: Python, Flask
-- **Computer Vision**: OpenCV, MediaPipe
+- **AI/ML**: 
+  - OpenCV (HAARCASCADE 얼굴 인식)
+  - MediaPipe (얼굴 특징점 검출)
+  - 직접 학습한 CNN 모델 (감정 분류)
+  - Keras/TensorFlow (모델 학습 및 추론)
+- **데이터셋**:
+  - FER2013 (Kaggle)
+  - 35,887개 학습 데이터
+  - 7가지 감정 레이블
 - **Frontend**: HTML, JavaScript
 - **이미지 처리**: PIL(Pillow)
 
@@ -20,18 +61,21 @@ Face Character Emoji는 웹캠을 통해 실시간으로 사용자의 얼굴을 
 ```mermaid
 graph TD
     A[웹캠] --> B[Flask 서버]
-    B --> C[MediaPipe 얼굴 인식]
-    C --> D[이미지 오버레이 처리]
-    D --> E[실시간 스트리밍]
-    E --> F[웹 브라우저]
-    G[필터 이미지] --> D
+    B --> C1[HAARCASCADE/MediaPipe 얼굴 인식]
+    C1 --> D1[CNN 감정 분류]
+    C1 --> D2[이미지 오버레이 처리]
+    D1 --> E1[게임 로직]
+    D2 --> E2[필터 적용]
+    E1 --> F[실시간 스트리밍]
+    E2 --> F
+    F --> G[웹 브라우저]
 ```
 
 ## ⚙️ 설치 방법
 1. 가상환경 생성 및 활성화
 ```bash
-python -m venv face-emoji
-.\face-emoji\Scripts\Activate  # Windows
+python -m venv venv
+.\venv\Scripts\activate  # Windows
 ```
 
 2. 필요한 패키지 설치
@@ -40,70 +84,54 @@ pip install -r requirements.txt
 ```
 
 3. 애플리케이션 실행
-```bash
-python main.py
-```
+- 감정 인식 게임: `python app.py`
+- 캐릭터 필터: `python main.py`
 
 4. 웹 브라우저에서 접속
+```
 http://localhost:5000
-
+```
 
 ## 💻 주요 기능 상세 설명
-### 1. 실시간 얼굴 인식
-- MediaPipe Face Detection을 사용하여 정확한 얼굴 특징점 추출
-- 눈, 코 위치를 실시간으로 감지하여 필터 위치 조정
-- 얼굴 움직임에 따른 자연스러운 필터 적용
+### 1. 얼굴 인식 시스템
+- HAARCASCADE를 활용한 얼굴 검출 (감정 인식)
+- MediaPipe를 활용한 얼굴 특징점 추출 (필터 적용)
+- 실시간 처리 최적화
 
-### 2. 필터 시스템
-- 고양이와 여우 캐릭터 필터 제공
-- 실시간 필터 전환 기능
-- 얼굴 특징점 기반 정확한 필터 포지셔닝
+### 2. 감정 인식 게임
+- 7가지 기본 감정 분류
+- 실시간 점수 시스템
+- 감정 유지 시간 측정
+- 동적 난이도 조절
 
-### 3. 웹 인터페이스
-- 직관적인 필터 선택 UI
+### 3. 캐릭터 필터
+- 고양이와 여우 캐릭터 필터
+- 실시간 필터 전환
+- 얼굴 특징점 기반 필터 포지셔닝
+
+### 4. 웹 인터페이스
+- 직관적인 UI/UX
 - 실시간 웹캠 피드백
 - 반응형 디자인
 
-## 🔄 시스템 프로세스 흐름도
-```mermaid
-sequenceDiagram
-    participant User
-    participant Browser
-    participant Flask Server
-    participant MediaPipe
-    participant OpenCV
-
-    User->>Browser: 웹페이지 접속
-    Browser->>Flask Server: GET /
-    Flask Server-->>Browser: index.html
-    Browser->>Flask Server: GET /video_feed
-    loop Video Stream
-        Flask Server->>OpenCV: 웹캠 프레임 캡처
-        OpenCV-->>Flask Server: 프레임 반환
-        Flask Server->>MediaPipe: 얼굴 인식 처리
-        MediaPipe-->>Flask Server: 얼굴 특징점 반환
-        Flask Server->>OpenCV: 필터 오버레이 적용
-        OpenCV-->>Flask Server: 처리된 프레임
-        Flask Server-->>Browser: 스트림 전송
-    end
-    User->>Browser: 필터 선택
-    Browser->>Flask Server: GET /cat_overlay 또는 /fox_overlay
-    Flask Server-->>Browser: 상태 업데이트
-```
-
 ## 🌟 핵심 구현 사항
-1. **실시간 얼굴 인식 및 추적**
-   - MediaPipe 라이브러리를 활용한 고성능 얼굴 인식
-   - 실시간 처리를 위한 최적화된 알고리즘 구현
+1. **AI 모델 개발 및 통합**
+   - HAARCASCADE 얼굴 검출
+   - CNN 기반 감정 분류
+   - MediaPipe 얼굴 특징점 검출
+   - 실시간 처리 최적화
 
-2. **필터 오버레이 시스템**
-   - 투명도를 지원하는 PNG 이미지 처리
-   - 얼굴 특징점 기반 동적 위치 조정
-   - 부드러운 필터 전환 효과
+2. **실시간 처리 시스템**
+   - 프레임 스킵을 통한 성능 향상
+   - 버퍼 사이즈 최적화
+   - 효율적인 메모리 관리
+   - 실시간 처리를 위한 모델 경량화
 
-3. **웹 스트리밍 최적화**
-   - 효율적인 비디오 스트리밍 구현
-   - 실시간 이미지 처리 성능 최적화
+3. **사용자 경험**
+   - 게임화된 감정 인식 시스템
+   - 직관적인 필터 인터페이스
+   - 실시간 피드백 제공
+   - 다양한 시각적 효과
 
 ## 🔧 개발 환경
 - Python 3.8+
@@ -111,7 +139,9 @@ sequenceDiagram
 - WebCam 필요
 
 ## 🎉 프로젝트 특징
-- 실시간 얼굴 인식과 필터 적용의 매끄러운 통합
+- AI 기술을 활용한 실시간 얼굴 인식 및 처리
 - 사용자 친화적인 웹 인터페이스
-- 확장 가능한 필터 시스템 설계
+- 확장 가능한 시스템 설계
 - 실시간 처리 최적화
+- 교육과 엔터테인먼트를 결합한 인터랙티브 경험
+```
