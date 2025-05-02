@@ -47,26 +47,6 @@ python main.py
 4. 웹 브라우저에서 접속
 http://localhost:5000
 
-## 📁 프로젝트 구조
-face_character_emoji/
-│
-├── main.py # Flask 애플리케이션 메인 파일
-├── animal_overlay_filter.py # 동물 필터 처리 로직
-├── image_overlay.py # 이미지 오버레이 유틸리티
-│
-├── templates/ # HTML 템플릿
-│ └── index.html
-│
-├── images/ # 필터 이미지 리소스
-│ ├── cat_left_ear.png
-│ ├── cat_right_ear.png
-│ ├── cat_nose.png
-│ ├── fox_left_ear.png
-│ ├── fox_right_ear.png
-│ └── fox_nose.png
-│
-└── requirements.txt # 프로젝트 의존성 파일
-
 
 ## 💻 주요 기능 상세 설명
 ### 1. 실시간 얼굴 인식
