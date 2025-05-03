@@ -11,9 +11,9 @@ cat_right_ear = cv2.imread('./images/cat_right_ear.png', cv2.IMREAD_UNCHANGED)
 cat_left_ear = cv2.imread('./images/cat_left_ear.png', cv2.IMREAD_UNCHANGED)
 cat_nose = cv2.imread('./images/cat_nose.png', cv2.IMREAD_UNCHANGED)
 
-fox_right_ear = cv2.imread(None, cv2.IMREAD_UNCHANGED)  # TODO: 여우 오른쪽 귀 이미지 경로를 None에 지정하세요.   './images/fox_right_ear.png'
-fox_left_ear = cv2.imread(None, cv2.IMREAD_UNCHANGED)   # TODO: 여우 왼쪽 귀 이미지 경로를 None에 지정하세요.     './images/fox_left_ear.png'
-fox_nose = cv2.imread(None, cv2.IMREAD_UNCHANGED)       # TODO: 여우 코 이미지 경로를 None에 지정하세요.          './images/fox_nose.png'
+fox_right_ear = cv2.imread('./images/fox_right_ear.png', cv2.IMREAD_UNCHANGED)
+fox_left_ear = cv2.imread('./images/fox_left_ear.png', cv2.IMREAD_UNCHANGED)
+fox_nose = cv2.imread('./images/fox_nose.png', cv2.IMREAD_UNCHANGED)      
 
 
 
@@ -46,11 +46,9 @@ def generate_frames():
                         overlay(image, *nose_tip, 150, 50, cat_nose)
 
                     elif  overlay_status==2:
-
-                        # TODO: 오버레이할 이미지를 None에 지정하세요 : fox_right_ear , fox_left_ear , fox_nose
-                        overlay(image, *right_eye, 50, 50, None)
-                        overlay(image, *left_eye, 50, 50, None)
-                        overlay(image, *nose_tip, 150, 50, None)
+                        overlay(image, *right_eye, 50, 50, fox_right_ear)
+                        overlay(image, *left_eye, 50, 50, fox_left_ear)
+                        overlay(image, *nose_tip, 150, 50, fox_nose)
 
             _ , buffer = cv2.imencode('.jpg', image)
             frame = buffer.tobytes()
